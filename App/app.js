@@ -1,11 +1,16 @@
 const items = document.getElementById('items')
 const templateItems = document.getElementById('template-card').content
 const fragment = document.createDocumentFragment()
-
+let buy = {}
 
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
 })
+
+items.addEventListener('click', e => {
+    addBuy(e)
+})
+
 const fetchData = async() => {
     try {
         const res = await fetch('../Api/api.json')
@@ -28,4 +33,20 @@ const renderItems = data => {
         fragment.appendChild(clone)
     })
     items.appendChild(fragment)
+}
+
+const addBuy = e => {
+    if(e.target.classList.contains('btn-dark')) {
+        setBuy(e.target.parentElement)
+    }
+    e.stopPropagation()
+}
+
+const setBuy = object => {
+    const product = {
+        id: object.querySelector('.btn-dark').dataset.id,
+        title: object.querySelector('h5').textContent,
+        price: object.querySelector('p').textContent
+    }
+    buy.appendChild(product)
 }
