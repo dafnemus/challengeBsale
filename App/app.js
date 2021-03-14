@@ -6,7 +6,6 @@ const fragment = document.createDocumentFragment()
 document.addEventListener('DOMContentLoaded', () => {
     fetchData();
 })
-
 const fetchData = async() => {
     try {
         const res = await fetch('../Api/api.json')
@@ -23,6 +22,7 @@ const renderItems = data => {
         templateItems.querySelector('h5').textContent = producto.title
         templateItems.querySelector('p').textContent = producto.precio
         templateItems.querySelector('img').setAttribute('src', producto.thumbnailUrl)
+        templateItems.querySelector('.btn-dark').dataset.id = producto.id
 
         const clone = templateItems.cloneNode(true)
         fragment.appendChild(clone)
